@@ -35,7 +35,7 @@ public class IALAPI {
         String code = intent.getStringExtra("code");
         if (!TextUtils.isEmpty(scope) && !TextUtils.isEmpty(state)) {
             try {
-                Intent toALIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("achain://api.vip0.com/open?" + SCOPE + "=" + scope + "&" + STATE + "=" + state));
+                Intent toALIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("achain://api.vip0.com/open?" + SCOPE + "=" + scope + "&" + STATE + "=" + state + "&package=" + context.getPackageName()));
                 context.startActivity(toALIntent);
                 ((AppCompatActivity) context).finish();
             } catch (Exception e) {
@@ -45,12 +45,12 @@ public class IALAPI {
                 ialapiEventHandler.onResp(resp);
             }
         } else if (!TextUtils.isEmpty(scope)) {
-            if("scope_login".equals(scope)){
-                if(TextUtils.isEmpty(code)){
+            if ("scope_login".equals(scope)) {
+                if (TextUtils.isEmpty(code)) {
                     SendAuth.Resp resp = new SendAuth.Resp();
                     resp.errCode = BaseResp.ErrCode.ERR_USER_CANCEL;
                     ialapiEventHandler.onResp(resp);
-                }else{
+                } else {
                     SendAuth.Resp resp = new SendAuth.Resp();
                     resp.errCode = BaseResp.ErrCode.ERR_OK;
                     resp.code = code;
